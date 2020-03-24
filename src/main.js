@@ -15,7 +15,6 @@ let raiseMoleInterval;
 init();
 
 function init() {
-    console.log('fuck ie 11');
     gameState = "Start";
     fillMoles();
     createButtons();
