@@ -49,7 +49,7 @@ function checkMole(e) {
     var x = (e.clientX - rect.left) * scaleY;
     var y = (e.clientY - rect.top) * scaleY;
     for (var i = 0; i < moles.length; i++) {
-        if ((x >= moles[i].xPos && x <= (moles[i].xPos + moles[i].width)) && (y >= moles[i].yPos && y <= (moles[i].yPos + moles[i].height))) {
+        if ((x >= moles[i].xPos-20 && x <= (moles[i].xPos + moles[i].width+20)) && (y >= moles[i].yPos-20 && y <= (moles[i].yPos + moles[i].height+20))) {
             if (moles[i].statusText == "alive") {
                 whackMole(i);
             }
