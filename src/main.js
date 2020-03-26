@@ -181,6 +181,7 @@ function checkTimer(timestamp) {
     let timeRemaining;
     if (gameState == "Play") {
         timeRemaining = Math.ceil(timeLimit - elapsedTime);
+        //add more moles at a time after half the time has elapsed
         if (halfTime == false) {
             if (timeRemaining < (timeLimit / 2)) {
                 halfTime = true;
@@ -268,6 +269,7 @@ function loop(timestamp) {
             fillText("A Game by Sean Mack", canvas.width / 2, canvas.height - 50, "30pt Times New Roman", "black");
             ctx.drawImage(img,canvas.width/2+200,canvas.height-85,50,50);
             break;
+        //Instructions Screen
         case "Instructions":
             ctx.textAlign = "center";
             fillText("A mysterious illness has taken over your town.", canvas.width / 2, 160, "18pt Times New Roman", "black");
