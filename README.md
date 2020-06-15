@@ -1,4 +1,4 @@
-# BottomLine-WhackAMole
+# Whack-A-Mole: Pandemic Edition
 A Whack-A-Mole browser game made using HTML, CSS, Javascript, and Canvas tools.
 
 The rules of this game are simple: the player chooses their level of difficulty, clicks on appearing "moles" (toilet paper rolls for the
