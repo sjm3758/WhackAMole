@@ -86,7 +86,7 @@ function checkMole(e) {
     for (var i = 0; i < moles.length; i++) {
         if ((x >= moles[i].xPos - 20 && x <= (moles[i].xPos + moles[i].width + 20)) && (y >= moles[i].yPos - 20 && y <= (moles[i].yPos + moles[i].height + 20))) {
             if (moles[i].statusText == "alive") {
-                whackMole(i);
+                whackMole(i, true);
             }
         }
     }
@@ -133,11 +133,11 @@ function checkButton(e) {
 }
 
 //render the clicked mole invisible/dead and add to the player's score
-function whackMole(index) {
+function whackMole(index, addPoint) {
     moles[index].statusPic.src = "";
     moles[index].statusText = "dead";
     //only add points if the mole hasn't disappeared due to their timer interval expiring
-    if (moles[index].interval != null) {
+    if (moles[index].interval != null && addPoint == true) {
         currentScore += 1;
         endMoleInterval(index);
     }
@@ -151,12 +151,16 @@ function reviveMole(index) {
     startMoleInterval(index);
 }
 
+function resetMoles(addPoints){
+    for (var i = 0; i < moles.length; i++) {
+        whackMole(i, addPoints);
+    }
+}
+
 //reset the status and timers of every mole and reset the interval to display moles
 function resetGame() {
-    for (var i = 0; i < moles.length; i++) {
-        whackMole(i);
-        currentScore = 0;
-    }
+    resetMoles(false);
+    currentScore = 0;
     window.clearInterval(raiseMoleInterval1);
     window.clearInterval(raiseMoleInterval2);
     halfTime = false;
@@ -217,7 +221,7 @@ function startMoleInterval(index) {
 function endMoleInterval(index) {
     window.clearInterval(moles[index].interval);
     moles[index].interval = null;
-    whackMole(index);
+    whackMole(index, false);
 }
 
 //finds all invisible/dead moles and returns the index for a random dead mole
@@ -240,12 +244,13 @@ function changeGameState(newState) {
         resetGame();
     }
     if (newState == "Game Over") {
-        if (currentScore > highScore) {
-            highScore = currentScore;
-        }
+        resetMoles(false);
         //don't raise moles anymore
         window.clearInterval(raiseMoleInterval1);
         window.clearInterval(raiseMoleInterval2);
+        if (currentScore > highScore) {
+            highScore = currentScore;
+        }
         bgImage.src = "media/mainImg.jpg";
     }
 }
